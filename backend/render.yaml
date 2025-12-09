@@ -6,12 +6,14 @@ services:
     name: monopoly-backend
     runtime: python
     buildCommand: pip install uv && uv sync --frozen
-    startCommand: uv run python mcp_server.py
+    startCommand: uv run python railway_entrypoint.py
     envVars:
       - key: AI_GATEWAY_API_KEY
         sync: false  # Set manually in dashboard
       - key: PYTHONUNBUFFERED
         value: "1"
+      - key: PORT
+        value: "10000"
     healthCheckPath: /api/state
     plan: free  # or starter for better performance
 

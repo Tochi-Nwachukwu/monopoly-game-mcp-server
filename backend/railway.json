@@ -4,9 +4,9 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "uv run python mcp_server.py",
+    "startCommand": "uv run python railway_entrypoint.py",
     "healthcheckPath": "/api/state",
-    "healthcheckTimeout": 30,
+    "healthcheckTimeout": 60,
     "restartPolicyType": "ON_FAILURE"
   }
 }
