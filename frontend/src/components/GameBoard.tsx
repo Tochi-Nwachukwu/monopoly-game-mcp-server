@@ -18,23 +18,23 @@ function getTileClass(type: string, color?: string): string {
 function TileIcon({ type }: { type: string }) {
   switch (type) {
     case "go":
-      return <span className="text-2xl">→</span>;
+      return <span className="text-lg sm:text-2xl">→</span>;
     case "jail":
-      return <span className="text-xl">🔒</span>;
+      return <span className="text-base sm:text-xl">🔒</span>;
     case "free_parking":
-      return <span className="text-xl">🅿️</span>;
+      return <span className="text-base sm:text-xl">🅿️</span>;
     case "go_to_jail":
-      return <span className="text-xl">👮</span>;
+      return <span className="text-base sm:text-xl">👮</span>;
     case "chance":
-      return <span className="text-xl">❓</span>;
+      return <span className="text-base sm:text-xl">❓</span>;
     case "community_chest":
-      return <span className="text-xl">💰</span>;
+      return <span className="text-base sm:text-xl">💰</span>;
     case "tax":
-      return <span className="text-xl">💸</span>;
+      return <span className="text-base sm:text-xl">💸</span>;
     case "railroad":
-      return <span className="text-xl">🚂</span>;
+      return <span className="text-base sm:text-xl">🚂</span>;
     case "utility":
-      return <span className="text-xl">💡</span>;
+      return <span className="text-base sm:text-xl">💡</span>;
     default:
       return null;
   }
@@ -56,42 +56,42 @@ function Tile({
   return (
     <div
       className={`
-        relative flex flex-col items-center justify-center p-1 
+        relative flex flex-col items-center justify-center p-0.5 sm:p-1 
         bg-[#e8f5e9] border border-[#2e7d32]/30
         ${isCorner ? "col-span-1 row-span-1" : ""}
         ${getTileClass(tile.type, tile.color)}
         transition-all hover:bg-[#c8e6c9] group
       `}
-      style={{ minHeight: isCorner ? "80px" : "60px" }}
+      style={{ minHeight: isCorner ? "45px" : "35px" }}
     >
       {/* Color band for properties */}
       {tileColor && (
         <div 
-          className="absolute top-0 left-0 right-0 h-3"
+          className="absolute top-0 left-0 right-0 h-2 sm:h-3"
           style={{ backgroundColor: tileColor }}
         />
       )}
       
       {/* Tile content */}
-      <div className={`text-center ${tileColor ? "mt-2" : ""}`}>
+      <div className={`text-center ${tileColor ? "mt-1 sm:mt-2" : ""}`}>
         <TileIcon type={tile.type} />
-        <p className="text-[8px] leading-tight font-medium text-gray-700 line-clamp-2">
+        <p className="text-[5px] sm:text-[8px] leading-tight font-medium text-gray-700 line-clamp-2 hidden sm:block">
           {tile.name}
         </p>
         {tile.price && (
-          <p className="text-[7px] text-gray-500">${tile.price}</p>
+          <p className="text-[5px] sm:text-[7px] text-gray-500 hidden sm:block">${tile.price}</p>
         )}
       </div>
       
       {/* Players on tile */}
       {playersOnTile.length > 0 && (
-        <div className="absolute bottom-1 flex gap-0.5 flex-wrap justify-center">
+        <div className="absolute bottom-0.5 sm:bottom-1 flex gap-0.5 flex-wrap justify-center">
           {playersOnTile.map((playerName) => {
             const playerIdx = playerOrder.indexOf(playerName);
             return (
               <div
                 key={playerName}
-                className="w-4 h-4 rounded-full border border-white shadow-sm animate-player-move"
+                className="w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full border border-white shadow-sm animate-player-move"
                 style={{ backgroundColor: PLAYER_COLORS[playerIdx % PLAYER_COLORS.length] }}
                 title={playerName}
               />
@@ -100,10 +100,10 @@ function Tile({
         </div>
       )}
       
-      {/* Hover tooltip */}
+      {/* Hover tooltip - hidden on mobile */}
       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 
                     bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 
-                    transition-opacity pointer-events-none whitespace-nowrap z-50">
+                    transition-opacity pointer-events-none whitespace-nowrap z-50 hidden sm:block">
         {tile.name}
       </div>
     </div>
@@ -125,63 +125,84 @@ export default function GameBoard({ players, playerOrder }: GameBoardProps) {
   const rightCol = [39, 38, 37, 36, 35, 34, 33, 32, 31]; // Bottom to top (reversed)
 
   return (
-    <div className="card-glass rounded-2xl p-4 overflow-auto">
-      <div className="grid grid-cols-11 gap-0.5 bg-[#2e7d32]/20 p-1 rounded-xl min-w-[600px]">
-        {/* Top row */}
-        {topRow.map((pos) => (
-          <Tile 
-            key={pos} 
-            position={pos} 
-            playersOnTile={getPlayersOnTile(pos)}
-            playerOrder={playerOrder}
-          />
-        ))}
-        
-        {/* Middle section */}
-        {leftCol.map((leftPos, idx) => (
-          <div key={`row-${idx}`} className="contents">
-            {/* Left tile */}
+    <div className="card-glass rounded-xl sm:rounded-2xl p-2 sm:p-4">
+      {/* Wrapper for scaling on mobile */}
+      <div className="w-full overflow-x-auto">
+        <div 
+          className="grid grid-cols-11 gap-px sm:gap-0.5 bg-[#2e7d32]/20 p-0.5 sm:p-1 rounded-lg sm:rounded-xl"
+          style={{ minWidth: "320px" }}
+        >
+          {/* Top row */}
+          {topRow.map((pos) => (
             <Tile 
-              position={leftPos} 
-              playersOnTile={getPlayersOnTile(leftPos)}
+              key={pos} 
+              position={pos} 
+              playersOnTile={getPlayersOnTile(pos)}
               playerOrder={playerOrder}
             />
-            
-            {/* Center area (9 columns) */}
-            {idx === 0 && (
-              <div className="col-span-9 row-span-9 bg-[#c8e6c9] rounded-lg flex items-center justify-center p-4">
-                <div className="text-center">
-                  <h2 className="monopoly-title text-4xl font-bold text-[#2e7d32] mb-2">
-                    MONOPOLY
-                  </h2>
-                  <div className="w-24 h-1 mx-auto bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full" />
-                  <p className="text-[#2e7d32]/60 text-sm mt-4 font-body">
-                    Real-Time Edition
-                  </p>
+          ))}
+          
+          {/* Middle section */}
+          {leftCol.map((leftPos, idx) => (
+            <div key={`row-${idx}`} className="contents">
+              {/* Left tile */}
+              <Tile 
+                position={leftPos} 
+                playersOnTile={getPlayersOnTile(leftPos)}
+                playerOrder={playerOrder}
+              />
+              
+              {/* Center area (9 columns) */}
+              {idx === 0 && (
+                <div className="col-span-9 row-span-9 bg-[#c8e6c9] rounded-md sm:rounded-lg flex items-center justify-center p-2 sm:p-4">
+                  <div className="text-center">
+                    <h2 className="monopoly-title text-xl sm:text-4xl font-bold text-[#2e7d32] mb-1 sm:mb-2">
+                      MONOPOLY
+                    </h2>
+                    <div className="w-12 sm:w-24 h-0.5 sm:h-1 mx-auto bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full" />
+                    <p className="text-[#2e7d32]/60 text-[10px] sm:text-sm mt-2 sm:mt-4 font-body">
+                      Real-Time Edition
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
-            
-            {/* Right tile */}
+              )}
+              
+              {/* Right tile */}
+              <Tile 
+                position={rightCol[idx]} 
+                playersOnTile={getPlayersOnTile(rightCol[idx])}
+                playerOrder={playerOrder}
+              />
+            </div>
+          ))}
+          
+          {/* Bottom row */}
+          {bottomRow.map((pos) => (
             <Tile 
-              position={rightCol[idx]} 
-              playersOnTile={getPlayersOnTile(rightCol[idx])}
+              key={pos} 
+              position={pos} 
+              playersOnTile={getPlayersOnTile(pos)}
               playerOrder={playerOrder}
             />
-          </div>
-        ))}
-        
-        {/* Bottom row */}
-        {bottomRow.map((pos) => (
-          <Tile 
-            key={pos} 
-            position={pos} 
-            playersOnTile={getPlayersOnTile(pos)}
-            playerOrder={playerOrder}
-          />
-        ))}
+          ))}
+        </div>
+      </div>
+      
+      {/* Mobile legend */}
+      <div className="mt-3 pt-3 border-t border-white/10 sm:hidden">
+        <p className="text-[10px] text-white/50 text-center mb-2">Players on board:</p>
+        <div className="flex flex-wrap justify-center gap-2">
+          {playerOrder.map((name, idx) => (
+            <div key={name} className="flex items-center gap-1">
+              <div 
+                className="w-3 h-3 rounded-full border border-white/50"
+                style={{ backgroundColor: PLAYER_COLORS[idx % PLAYER_COLORS.length] }}
+              />
+              <span className="text-[10px] text-white/70">{name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-
