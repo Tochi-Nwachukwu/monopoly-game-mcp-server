@@ -12,7 +12,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8001))
     
     print(f"Starting Monopoly Game API on port {port}...")
-    print(f"Health check: http://0.0.0.0:{port}/api/state")
+    print(f"Health check: http://0.0.0.0:{port}/api/status")
     
     # Run FastAPI as the main process
     uvicorn.run(

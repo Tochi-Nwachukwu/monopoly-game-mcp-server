@@ -5,7 +5,7 @@
   },
   "deploy": {
     "startCommand": "uv run python railway_entrypoint.py",
-    "healthcheckPath": "/api/state",
+    "healthcheckPath": "/api/status",
     "healthcheckTimeout": 60,
     "restartPolicyType": "ON_FAILURE"
   }

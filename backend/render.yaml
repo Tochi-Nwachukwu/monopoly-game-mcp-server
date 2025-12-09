@@ -14,6 +14,6 @@ services:
         value: "1"
       - key: PORT
         value: "10000"
-    healthCheckPath: /api/state
+    healthCheckPath: /api/status
     plan: free  # or starter for better performance
 
