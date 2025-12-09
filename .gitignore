@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+
+# Game data (JSON save files)
+backend/game_data/
+game_data/
+
+# Node.js
+node_modules/
+.next/
+out/
+
+# Environment files (all folders)
+.env
+.env.*
+**/.env
+**/.env.*
+**/.env.local
+**/.env.*.local
+
+# Terraform
+terraform.tfvars
+*.tfvars
+!*.tfvars.example
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Build
+*.tsbuildinfo
+next-env.d.ts
+
+

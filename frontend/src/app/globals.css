@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --monopoly-brown: #955436;
+  --monopoly-light-blue: #aae0fa;
+  --monopoly-pink: #d93a96;
+  --monopoly-orange: #f7941d;
+  --monopoly-red: #ed1b24;
+  --monopoly-yellow: #fef200;
+  --monopoly-green: #1fb25a;
+  --monopoly-dark-blue: #0072bb;
+  --board-green: #c8e6c9;
+  --board-border: #2e7d32;
+}
+
+body {
+  font-family: 'Libre Franklin', sans-serif;
+  background: linear-gradient(135deg, #0c0c1e 0%, #1a1a3e 25%, #0f2847 50%, #0a1628 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Subtle animated background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.monopoly-title {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.font-body {
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.tile-property {
+  @apply relative overflow-hidden;
+}
+
+.tile-property::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+.tile-brown::before { background: var(--monopoly-brown); }
+.tile-light-blue::before { background: var(--monopoly-light-blue); }
+.tile-pink::before { background: var(--monopoly-pink); }
+.tile-orange::before { background: var(--monopoly-orange); }
+.tile-red::before { background: var(--monopoly-red); }
+.tile-yellow::before { background: var(--monopoly-yellow); }
+.tile-green::before { background: var(--monopoly-green); }
+.tile-dark-blue::before { background: var(--monopoly-dark-blue); }
+
+.player-token {
+  @apply rounded-full border-2 border-white shadow-lg;
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+.dice {
+  @apply bg-white rounded-lg shadow-xl flex items-center justify-center font-bold text-2xl;
+  width: 48px;
+  height: 48px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.action-btn {
+  @apply px-4 py-2 rounded-xl font-semibold transition-all duration-200;
+  @apply hover:scale-105 active:scale-95;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+  @apply shadow-lg;
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.card-glass:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Custom scrollbar */
+.scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Animations */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 1s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #f59e0b, #d97706, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button glow effect */
+.btn-glow {
+  position: relative;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.btn-glow:hover::after {
+  opacity: 0.5;
+}
+
+/* Stat card hover effect */
+.stat-card {
+  @apply transition-all duration-300;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus styles */
+input:focus, button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: white;
+}
+
+/* Loading skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 25%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Property card colors on board */
+.property-brown { border-left-color: var(--monopoly-brown); }
+.property-light-blue { border-left-color: var(--monopoly-light-blue); }
+.property-pink { border-left-color: var(--monopoly-pink); }
+.property-orange { border-left-color: var(--monopoly-orange); }
+.property-red { border-left-color: var(--monopoly-red); }
+.property-yellow { border-left-color: var(--monopoly-yellow); }
+.property-green { border-left-color: var(--monopoly-green); }
+.property-dark-blue { border-left-color: var(--monopoly-dark-blue); }
+
+/* Pulse ring animation for live indicator */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}

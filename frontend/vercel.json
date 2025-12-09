@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm ci",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@monopoly_api_url",
+    "NEXT_PUBLIC_WS_URL": "@monopoly_ws_url"
+  }
+}
+

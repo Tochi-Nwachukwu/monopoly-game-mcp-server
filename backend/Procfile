@@ -1,0 +1,3 @@
+# For Railway/Render/Heroku deployment
+web: uv run python mcp_server.py
+
