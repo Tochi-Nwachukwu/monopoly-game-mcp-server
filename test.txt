@@ -1,0 +1,5 @@
+vercel env add NEXT_PUBLIC_WS_URL 
+
+wss://monopoly-game-mcp-server-production.up.railway.app/api/ws
+
+https://monopoly-game-mcp-server-production.up.railway.app/

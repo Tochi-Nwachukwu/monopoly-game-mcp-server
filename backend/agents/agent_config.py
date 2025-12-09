@@ -25,7 +25,7 @@ AVAILABLE_AGENTS: List[Dict[str, Any]] = [
         "description": "Fast and cost-effective OpenAI model for everyday tasks",
     },
     {
-        "id": "claude-haiku",
+        "id": "claude-3.5-haiku",
         "name": "claude-3.5-haiku",
         "emoji": "🟠",
         "color": "#d97706",
