@@ -20,7 +20,7 @@ export interface AIAgent {
   model_id: string;
   description: string;
 }
-
+// used for AI reasoning panel
 export interface AgentThought {
   agent_id: string;
   agent_name: string;
